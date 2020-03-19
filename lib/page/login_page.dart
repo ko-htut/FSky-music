@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +99,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
           Container(
             margin: EdgeInsets.only(top: ScreenUtil().setWidth(3)),
             child: Text(
-              'F Sky Music App',
+              'The Flutter Netease Cloud Music App',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
@@ -108,7 +109,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
           VEmptyView(50),
           TextField(
             controller: _phoneController,
-            // keyboardType: TextInputType.,
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 hintText: 'Email',
                 prefixIcon: Icon(
@@ -135,18 +136,16 @@ class __LoginWidgetState extends State<_LoginWidget> {
                   String phone = _phoneController.text;
                   String pwd = _pwdController.text;
                   if (phone.isEmpty || pwd.isEmpty) {
-                    Utils.showToast(
-                        'ကျေးဇူးပြုပီး အကောင့် login ဖောင်အားဖြည့်ပါ');
+                    Utils.showToast('ကျေးဇူးပြုပီး အကောင့် login ဖောင်အားဖြည့်ပါ');
                     return;
                   }
-                  value
-                      .login(
+                  value.login(
                     context,
                     phone,
                     pwd,
-                  )
-                      .then((value) {
-                    if (value != null) {
+                  ).then((value){
+                    if(value != null){
+                      // Provider.of<PlayListModel>(context).user = value;
                       NavigatorUtil.goHomePage(context);
                     }
                   });

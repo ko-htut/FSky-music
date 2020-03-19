@@ -8,7 +8,7 @@ import 'package:fskymusic/page/play_songs/play_songs_page.dart';
 import 'package:fskymusic/page/splash_page.dart';
 import 'package:fskymusic/utils/fluro_convert_utils.dart';
 
-// splash 页面
+// splash 
 var splashHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
   return SplashPage();

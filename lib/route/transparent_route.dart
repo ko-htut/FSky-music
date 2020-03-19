@@ -28,7 +28,7 @@ class TransparentRoute extends PageRoute<void> {
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
     final result = builder(context);
-    //FadeTransition渐隐渐现
+    //FadeTransition
     return FadeTransition(
       opacity: Tween(begin: 0.0, end: 1.0)
           .animate(CurvedAnimation(parent: animation, curve: Curves.linear)),

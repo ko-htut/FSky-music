@@ -35,14 +35,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: <Widget>[
             Padding(
               child: Column(
-               
                 children: <Widget>[
                   Stack(
                     alignment: AlignmentDirectional.topStart,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(
-                            right: ScreenUtil().setWidth(300)),
+                        padding:
+                            EdgeInsets.only(right: ScreenUtil().setWidth(300)),
                         child: TabBar(
                           labelStyle: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
@@ -64,13 +63,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       Positioned(
                         right: ScreenUtil().setWidth(20),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            size: ScreenUtil().setWidth(50),
-                            color: Colors.black87,
-                          ),
-                          onPressed: () {},
+                        child: Image.asset(
+                          'images/fskylogo.png',
+                          width: ScreenUtil().setWidth(90),
+                          height: ScreenUtil().setWidth(90),
                         ),
                       ),
                     ],
@@ -89,7 +85,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ScreenUtil().setWidth(0) + Application.bottomBarHeight),
             ),
             PlayWidget(),
-
           ],
         ),
       ),

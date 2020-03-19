@@ -121,7 +121,7 @@ class _MyHomeState extends State<MyHome>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

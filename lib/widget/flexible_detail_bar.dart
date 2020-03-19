@@ -44,7 +44,6 @@ class FlexibleDetailBar extends StatelessWidget {
     (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
         .clamp(0.0, 1.0);
 
-    //背景添加视差滚动效果
     children.add(Positioned(
       top: -Tween<double>(begin: 0.0, end: deltaExtent / 4.0).transform(t),
       left: 0,
@@ -53,7 +52,6 @@ class FlexibleDetailBar extends StatelessWidget {
       child: background,
     ));
 
-    //为content 添加 底部的 padding
     double bottomPadding = 0;
     SliverAppBar sliverBar = context.ancestorWidgetOfExactType(SliverAppBar);
     if (sliverBar != null && sliverBar.bottom != null) {
@@ -103,10 +101,8 @@ class _FlexibleDetail extends InheritedWidget {
   }
 }
 
-///
-/// 用在 [FlexibleDetailBar.background]
-/// child上下滑动的时候会覆盖上黑色阴影
-///
+/// [FlexibleDetailBar.background]
+
 class FlexShadowBackground extends StatelessWidget {
   final Widget child;
 

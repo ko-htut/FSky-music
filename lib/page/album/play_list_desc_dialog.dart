@@ -87,7 +87,7 @@ class PlayListDescDialog extends StatelessWidget {
                           //         crossAxisAlignment: CrossAxisAlignment.start,
                           //         children: <Widget>[
                           //           Text(
-                          //             '标签：',
+                          //             '----',
                           //             style: common14WhiteTextStyle,
                           //           ),
                           //           ..._data.tags
