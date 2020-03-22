@@ -14,6 +14,7 @@ import 'package:fskymusic/widget/v_empty_view.dart';
 import 'package:fskymusic/widget/widget_future_builder.dart';
 import 'package:fskymusic/widget/widget_play_list.dart';
 import 'package:fskymusic/widget/widget_round_img.dart';
+import 'package:marquee_widget/marquee_widget.dart';
 import 'package:provider/provider.dart';
 
 class MyHome extends StatefulWidget {
@@ -50,7 +51,6 @@ class _MyHomeState extends State<MyHome>
             onTap: () {
               switch (index) {
                 case 0:
-                
                   break;
                 case 1:
                   NavigatorUtil.goArtistlistHandler(context);
@@ -72,7 +72,7 @@ class _MyHomeState extends State<MyHome>
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
-                    child: Text(keys[index]),
+                    child: Marquee(child: Text(keys[index])),
                   )
                 ],
               ),
@@ -271,6 +271,7 @@ class _MyHomeState extends State<MyHome>
   }
 
   void playSongs(PlaySongsModel model, int index) {
+    print(data.data[index].source);
     model.playSongs(
       data.data
           .map((r) => son.Song(r.id,
@@ -279,7 +280,7 @@ class _MyHomeState extends State<MyHome>
               picUrl: r.cover,
               artists: '${r.artist.artistName}',
               songUrl:
-                  "https://eboxmovie.sgp1.digitaloceanspaces.com/saisai.MP3"))
+                  "http://dashboard.fskymusic.com/source/song/mp3/849234502.mp3"))
           .toList(),
       index: index,
     );

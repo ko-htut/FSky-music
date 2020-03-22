@@ -10,7 +10,6 @@ import 'package:fskymusic/model/my_song.dart';
 import 'package:fskymusic/utils/fluro_convert_utils.dart';
 
 class PlaySongsModel with ChangeNotifier {
-
   String taskId;
   int progress = 0;
   DownloadTaskStatus status = DownloadTaskStatus.undefined;
@@ -100,6 +99,9 @@ class PlaySongsModel with ChangeNotifier {
   void nextPlay() {
     if (curIndex >= _songs.length) {
       curIndex = 0;
+    }
+    if (curIndex == _songs.length) {
+      pausePlay();
     } else {
       curIndex++;
     }

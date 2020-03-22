@@ -81,7 +81,7 @@ class _ArtistPageState extends State<ArtistPage> {
                 margin: EdgeInsets.only(
                     top: kToolbarHeight + Application.statusBarHeight),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Column(
                     children: <Widget>[
                       ListTile(
@@ -103,7 +103,7 @@ class _ArtistPageState extends State<ArtistPage> {
                         ],
                       ),
                       Container(
-                          // color: Colors.white,
+                       
                           height: MediaQuery.of(context).size.height - 270,
                           child: Consumer<ArticProvider>(builder:
                               (BuildContext context,
@@ -194,7 +194,7 @@ class _ArtistPageState extends State<ArtistPage> {
               picUrl: r.cover,
               artists: '${r.artist.artistName}',
               songUrl:
-                  "https://eboxmovie.sgp1.digitaloceanspaces.com/saisai.MP3"))
+                  r.source))
           .toList(),
       index: index,
     );

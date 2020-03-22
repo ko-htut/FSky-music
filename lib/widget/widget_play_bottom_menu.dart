@@ -36,14 +36,20 @@ class PlayBottomMenuWidget extends StatelessWidget {
               model.togglePlay();
             },
           ),
-          ImageMenuWidget(
-            'images/icon_song_right.png',
-            80,
-            onTap: () {
-              model.nextPlay();
-            },
-          ),
-           HEmptyView(80),
+          (model.curIndex == model.allSongs.length - 1)
+              ? HEmptyView(80)
+              : ImageMenuWidget(
+                  'images/icon_song_right.png',
+                  80,
+                  onTap: () {
+                    if (model.curIndex == model.allSongs.length) {
+                    } else {
+                      print(model.curIndex == model.allSongs.length);
+                      model.nextPlay();
+                    }
+                  },
+                ),
+          HEmptyView(80),
         ],
       ),
     );
