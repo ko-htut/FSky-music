@@ -105,7 +105,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
           Container(
             margin: EdgeInsets.only(top: ScreenUtil().setWidth(3)),
             child: Text(
-              'The Flutter Netease Cloud Music App',
+              'F-Sky Music App',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
