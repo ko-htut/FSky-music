@@ -1,19 +1,18 @@
-import 'dart:io';
-
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fskymusic/model/album.dart';
+import 'package:fskymusic/model/artist.dart' as aa;
+import 'package:fskymusic/model/albumsong.dart';
+import 'package:fskymusic/model/artistdata.dart';
 import 'package:fskymusic/model/song.dart';
 import 'package:fskymusic/model/user.dart';
 import 'package:fskymusic/route/navigate_service.dart';
 import 'package:fskymusic/route/routes.dart';
 import 'package:fskymusic/utils/utils.dart';
 import 'package:fskymusic/widget/loading.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../application.dart';
-import 'custom_log_interceptor.dart';
+
 
 class NetUtils {
   static Dio _dio = Dio();
@@ -71,6 +70,7 @@ class NetUtils {
 
   static Future<AlbumData> getAlbumData(
     BuildContext context,
+    {String ss}
   ) async {
     var response = await _get(
       context,
@@ -79,6 +79,16 @@ class NetUtils {
     return AlbumData.fromJson(response.data);
   }
 
+ static Future<aa.ArtistData> getartist(
+    BuildContext context,
+  ) async {
+    var response = await _get(
+      context,
+      'artist',
+    );
+    return aa.ArtistData.fromJson(response.data);
+  }
+ 
   static Future<SongData> getSongData(
     BuildContext context,
   ) async {
@@ -87,5 +97,15 @@ class NetUtils {
       'song?page=1',
     );
     return SongData.fromJson(response.data);
+  }
+
+  static Future<AlbumSong> getAlbumSongData(
+    BuildContext context,{String i}
+  ) async {
+    var response = await _get(
+      context,
+      "album$i",
+    );
+    return AlbumSong.fromJson(response.data);
   }
 }

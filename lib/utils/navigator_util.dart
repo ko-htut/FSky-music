@@ -1,11 +1,8 @@
-import 'dart:io';
-
-import 'package:extended_image/extended_image.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:fskymusic/model/album.dart';
+import 'package:fskymusic/model/album.dart' as ab;
+import 'package:fskymusic/model/artist.dart';
 import 'package:fskymusic/route/routes.dart';
-import 'package:fskymusic/route/transparent_route.dart';
 import 'package:fskymusic/utils/fluro_convert_utils.dart';
 
 import '../application.dart';
@@ -24,19 +21,38 @@ class NavigatorUtil {
         transition: TransitionType.material);
   }
 
-
   static void goLoginPage(BuildContext context) {
     _navigateTo(context, Routes.login, clearStack: true);
   }
 
-  
+  static void goAllAlbumPage(BuildContext context) {
+    _navigateTo(context, Routes.allalbumPage);
+  }
+
+  static void goAllSongPageHandler(BuildContext context) {
+    _navigateTo(context, Routes.allsongPgae);
+  }
+
+  static void goArtistHandler(BuildContext context,
+      {@required Datum data}) {
+    _navigateTo(context,
+        "${Routes.artist}?data=${FluroConvertUtils.object2string(data)}");
+  }
+
+  static void goArtistlistHandler(BuildContext context) {
+    _navigateTo(context, Routes.artistlist);
+  }
+
   static void goHomePage(BuildContext context) {
     _navigateTo(context, Routes.home, clearStack: true);
   }
-  static void goAlbumPage(BuildContext context,{@required Datum data}) {
-    _navigateTo(context, "${Routes.album}?data=${FluroConvertUtils.object2string(data)}");
+
+  static void goAlbumPage(BuildContext context, {@required ab.Datum data}) {
+    _navigateTo(context,
+        "${Routes.album}?data=${FluroConvertUtils.object2string(data)}");
   }
-   static void goPlaySongsPage(BuildContext context) {
-    _navigateTo(context, Routes.playSongs,clearStack: false);
+
+  static void goPlaySongsPage(BuildContext context) {
+    _navigateTo(context, Routes.playSongs, clearStack: false);
   }
 }

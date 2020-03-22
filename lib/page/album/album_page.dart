@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fskymusic/model/album.dart';
+import 'package:fskymusic/model/album.dart' as alb;
+import 'package:fskymusic/model/albumsong.dart' as ass;
+import 'package:fskymusic/model/my_song.dart' as s;
+import 'package:fskymusic/model/music.dart';
 import 'package:fskymusic/page/album/play_list_desc_dialog.dart';
+import 'package:fskymusic/provider/play_songs_model.dart';
+import 'package:fskymusic/utils/navigator_util.dart';
+import 'package:fskymusic/utils/net_utils.dart';
 import 'package:fskymusic/widget/common_text_style.dart';
 import 'package:fskymusic/widget/h_empty_view.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
+import 'package:fskymusic/widget/widget_music_list_item.dart';
+import 'package:fskymusic/widget/widget_play.dart';
 import 'package:fskymusic/widget/widget_play_list_app_bar.dart';
 import 'package:fskymusic/widget/widget_play_list_cover.dart';
 import 'package:fskymusic/widget/widget_round_img.dart';
+import 'package:fskymusic/widget/widget_sliver_future_builder.dart';
+import 'package:provider/provider.dart';
 
 import '../../application.dart';
 
 class AlbumPage extends StatefulWidget {
-  final Datum data;
+  final alb.Datum data;
 
   AlbumPage(this.data);
 
@@ -117,14 +127,51 @@ class _AlbumPageState extends State<AlbumPage> {
                       ? null
                       : widget.data.songs.length,
                 ),
-             
+                CustomSliverFutureBuilder<ass.AlbumSong>(
+                  futureFunc: NetUtils.getAlbumSongData,
+                  i: "/${widget.data.id}",
+                  builder: (context, data) {
+                    return Consumer<PlaySongsModel>(
+                        builder: (context, model, child) {
+                      return SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                        var d = data.data.songs[index];
+                        return WidgetMusicListItem(
+                            MusicData(
+                              mvid: d.id,
+                              index: index + 1,
+                              songName: d.name,
+                              artists: d.artist.artistName,
+                            ), onTap: () {
+                          model.playSongs(
+                            data.data.songs
+                                .map((r) => s.Song(r.id,
+                                    songLrc: r.lyric,
+                                    name: r.name,
+                                    picUrl: r.cover,
+                                    artists: '${r.artist.artistName}',
+                                    songUrl:
+                                        "https://eboxmovie.sgp1.digitaloceanspaces.com/saisai.MP3"))
+                                .toList(),
+                            index: index,
+                          );
+
+                          NavigatorUtil.goPlaySongsPage(context);
+                        });
+                      }, childCount: data.data.songs.length));
+                    });
+                  },
+                ),
               ],
             ),
           ),
+          PlayWidget(),
         ],
       ),
     );
   }
+
   Widget _buildMaterialDialogTransitions(
       BuildContext context,
       Animation<double> animation,
@@ -160,7 +207,7 @@ class _AlbumPageState extends State<AlbumPage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    widget.data.detail,
+                    widget.data.about,
                     style: smallWhite70TextStyle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

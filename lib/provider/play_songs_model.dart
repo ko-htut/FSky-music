@@ -1,16 +1,20 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:common_utils/common_utils.dart';
-import 'package:flutter/material.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+
 import 'package:fskymusic/application.dart';
 import 'package:fskymusic/model/my_song.dart';
 import 'package:fskymusic/utils/fluro_convert_utils.dart';
 
 class PlaySongsModel with ChangeNotifier {
+
+  String taskId;
+  int progress = 0;
+  DownloadTaskStatus status = DownloadTaskStatus.undefined;
+
   AudioPlayer _audioPlayer = AudioPlayer();
   StreamController<String> _curPositionController =
       StreamController<String>.broadcast();

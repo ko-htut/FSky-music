@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fskymusic/application.dart';
 import 'package:fskymusic/page/home/my_home/my_home.dart';
+import 'package:fskymusic/page/home/my_page/my_page.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
 import 'package:fskymusic/widget/widget_play.dart';
+
+import 'about/about.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 2);
   }
 
   @override
@@ -41,11 +44,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     children: <Widget>[
                       Padding(
                         padding:
-                            EdgeInsets.only(right: ScreenUtil().setWidth(300)),
+                            EdgeInsets.only(right: ScreenUtil().setWidth(280)),
                         child: TabBar(
                           labelStyle: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                          unselectedLabelStyle: TextStyle(fontSize: 14),
+                              fontSize: 13, fontWeight: FontWeight.bold),
+                          unselectedLabelStyle: TextStyle(fontSize: 13),
                           indicator: UnderlineTabIndicator(),
                           controller: _tabController,
                           tabs: [
@@ -53,11 +56,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               text: 'Home',
                             ),
                             Tab(
-                              text: 'Artic',
+                              text: 'My Page',
                             ),
-                            Tab(
-                              text: 'Profile',
-                            ),
+                            // Tab(
+                            //   text: 'Profile',
+                            // ),
                           ],
                         ),
                       ),
@@ -75,7 +78,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Expanded(
                     child: TabBarView(
                       controller: _tabController,
-                      children: [MyHome(), Text("Hello 2"), Text("Hello 3")],
+                      children: [MyHome(), MyPage()],
                     ),
                   ),
                 ],

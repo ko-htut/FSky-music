@@ -1,18 +1,20 @@
 class Song {
-  int id; // 歌曲id
-  String name; // 歌曲名称
-  String artists; // 演唱者
-  String picUrl; // 歌曲图片
-  String songUrl; // 歌曲图片
+  int id;
+  String name;
+  String artists;
+  String picUrl;
+  String songUrl;
+  String songLrc;
 
-  Song(this.id, {this.name, this.artists, this.picUrl, this.songUrl});
+  Song(this.id, {this.name, this.artists, this.picUrl, this.songUrl,this.songLrc});
 
   Song.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         artists = json['artists'],
         picUrl = json['picUrl'],
-        songUrl = json['songUrl'];
+        songUrl = json['songUrl'],
+        songLrc = json['songLrc'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -20,6 +22,7 @@ class Song {
         'artists': artists,
         'picUrl': picUrl,
         'songUrl': songUrl,
+        'songLrc': songLrc,
       };
 
   @override

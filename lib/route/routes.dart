@@ -8,6 +8,10 @@ class Routes {
   static String home = "/home";
   static String login = "/login";
   static String album = "/album";
+  static String allalbumPage = "/allalbumPage";
+  static String allsongPgae = "/allsongPgae";
+  static String artist = "/artist";
+  static String artistlist = "/artistlist";
   static String playSongs = "/play_songs";
   static void configureRoutes(Router router) {
     router.notFoundHandler = new Handler(
@@ -20,5 +24,9 @@ class Routes {
     router.define(home, handler: homeHandler);
     router.define(album, handler: albumHandler);
     router.define(playSongs, handler: playSongsHandler);
+    router.define(allalbumPage, handler: goAllAlbumPageHandler);
+    router.define(allsongPgae, handler: goAllSongPageHandler);
+    router.define(artist, handler: artistHandler);
+    router.define(artistlist, handler: artistlistHandler);
   }
 }

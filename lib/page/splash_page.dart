@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:fskymusic/application.dart';
 import 'package:fskymusic/model/my_song.dart';
 import 'package:fskymusic/provider/play_songs_model.dart';
@@ -46,6 +46,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     await Application.initSp();
     UserModel userModel = Provider.of<UserModel>(context);
     userModel.initUser();
+
     PlaySongsModel playSongsModel = Provider.of<PlaySongsModel>(context);
     if (Application.sp.containsKey('playing_songs')) {
       List<String> songs = Application.sp.getStringList('playing_songs');

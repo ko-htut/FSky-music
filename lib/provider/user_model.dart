@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fskymusic/application.dart';
 import 'package:fskymusic/model/user.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fskymusic/utils/net_utils.dart';
-import 'package:fskymusic/utils/utils.dart';
+
 
 class UserModel with ChangeNotifier {
   User _user;
@@ -19,8 +18,8 @@ class UserModel with ChangeNotifier {
     }
   }
 
-  Future<User> login(BuildContext context, String phone, String pwd) async {
-    User user = await NetUtils.login(context, phone, pwd);
+  Future<User> login(BuildContext context, String email, String pwd) async {
+    User user = await NetUtils.login(context, email, pwd);
     _saveUserInfo(user);
     return user;
   }

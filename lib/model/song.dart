@@ -1,30 +1,22 @@
-// To parse this JSON data, do
-//
-//     final songData = songDataFromJson(jsonString);
-
-import 'dart:convert';
 
 class SongData {
     List<Datum> data;
-    Links links;
-    Meta meta;
+  
 
     SongData({
         this.data,
-        this.links,
-        this.meta,
+       
     });
 
     factory SongData.fromJson(Map<String, dynamic> json) => SongData(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        links: Links.fromJson(json["links"]),
-        meta: Meta.fromJson(json["meta"]),
+       
     );
 
     Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "links": links.toJson(),
-        "meta": meta.toJson(),
+        // "links": links.toJson(),
+        // "meta": meta.toJson(),
     };
 }
 

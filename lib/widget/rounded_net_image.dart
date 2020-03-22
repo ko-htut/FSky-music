@@ -1,4 +1,4 @@
-import 'package:extended_image/extended_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fskymusic/utils/utils.dart';

@@ -61,13 +61,13 @@ class PlayWidget extends StatelessWidget {
                   ),
                 ),
                 HEmptyView(15),
-                GestureDetector(
-                  onTap: (){},
-                  child: Image.asset(
-                    'images/list.png',
-                    width: ScreenUtil().setWidth(50),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){},
+                //   child: Image.asset(
+                //     'images/list.png',
+                //     width: ScreenUtil().setWidth(50),
+                //   ),
+                // ),
               ],
             ),
           );

@@ -1,31 +1,72 @@
+// To parse this JSON data, do
+//
+//     final artistDData = artistDDataFromJson(jsonString);
 
-class AlbumData {
-    List<Datum> data;
+import 'dart:convert';
 
-    AlbumData({
+ArtistDData artistDDataFromJson(String str) => ArtistDData.fromJson(json.decode(str));
+
+String artistDDataToJson(ArtistDData data) => json.encode(data.toJson());
+
+class ArtistDData {
+    Data data;
+
+    ArtistDData({
         this.data,
     });
 
-    factory AlbumData.fromJson(Map<String, dynamic> json) => AlbumData(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    factory ArtistDData.fromJson(Map<String, dynamic> json) => ArtistDData(
+        data: Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
     };
 }
 
-class Datum {
+class Data {
+    int id;
+    String profile;
+    String name;
+    List<AlbumElement> album;
+    List<Song> song;
+
+    Data({
+        this.id,
+        this.profile,
+        this.name,
+        this.album,
+        this.song,
+    });
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        id: json["id"],
+        profile: json["profile"],
+        name: json["name"],
+        album: List<AlbumElement>.from(json["album"].map((x) => AlbumElement.fromJson(x))),
+        song: List<Song>.from(json["song"].map((x) => Song.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "profile": profile,
+        "name": name,
+        "album": List<dynamic>.from(album.map((x) => x.toJson())),
+        "song": List<dynamic>.from(song.map((x) => x.toJson())),
+    };
+}
+
+class AlbumElement {
     int id;
     String cover;
     String name;
     String about;
-    DatumArtist artist;
+    AlbumArtist artist;
     bool condition;
     List<Song> songs;
     String detail;
 
-    Datum({
+    AlbumElement({
         this.id,
         this.cover,
         this.name,
@@ -36,12 +77,12 @@ class Datum {
         this.detail,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory AlbumElement.fromJson(Map<String, dynamic> json) => AlbumElement(
         id: json["id"],
         cover: json["cover"],
         name: json["name"],
         about: json["about"],
-        artist: DatumArtist.fromJson(json["artist"]),
+        artist: AlbumArtist.fromJson(json["artist"]),
         condition: json["condition"],
         songs: List<Song>.from(json["songs"].map((x) => Song.fromJson(x))),
         detail: json["detail"],
@@ -59,16 +100,16 @@ class Datum {
     };
 }
 
-class DatumArtist {
+class AlbumArtist {
     String name;
     String detail;
 
-    DatumArtist({
+    AlbumArtist({
         this.name,
         this.detail,
     });
 
-    factory DatumArtist.fromJson(Map<String, dynamic> json) => DatumArtist(
+    factory AlbumArtist.fromJson(Map<String, dynamic> json) => AlbumArtist(
         name: json["name"],
         detail: json["detail"],
     );
@@ -85,7 +126,7 @@ class Song {
     String name;
     SongArtist artist;
     Category category;
-    Album album;
+    SongAlbum album;
     String lyric;
     String source;
     String detail;
@@ -108,7 +149,7 @@ class Song {
         name: json["name"],
         artist: SongArtist.fromJson(json["artist"]),
         category: Category.fromJson(json["category"]),
-        album: Album.fromJson(json["album"]),
+        album: SongAlbum.fromJson(json["album"]),
         lyric: json["lyric"],
         source: json["source"],
         detail: json["detail"],
@@ -127,16 +168,16 @@ class Song {
     };
 }
 
-class Album {
+class SongAlbum {
     String albumName;
     String albumDetail;
 
-    Album({
+    SongAlbum({
         this.albumName,
         this.albumDetail,
     });
 
-    factory Album.fromJson(Map<String, dynamic> json) => Album(
+    factory SongAlbum.fromJson(Map<String, dynamic> json) => SongAlbum(
         albumName: json["album_name"],
         albumDetail: json["album_detail"],
     );

@@ -10,10 +10,11 @@ import 'h_empty_view.dart';
 typedef PlayModelCallback = void Function(PlaySongsModel model);
 
 class MusicListHeader extends StatelessWidget implements PreferredSizeWidget {
-  MusicListHeader({this.count, this.tail, this.onTap});
+  MusicListHeader({this.count, this.tail,this.title, this.onTap});
 
   final int count;
   final Widget tail;
+  final String title;
   final PlayModelCallback onTap;
 
   @override
@@ -41,7 +42,7 @@ class MusicListHeader extends StatelessWidget implements PreferredSizeWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 3.0),
                     child: Text(
-                      "သီချင်းအပုဒ်စုစုပေါင်း",
+                      title,
                       style: mCommonTextStyle,
                     ),
                   ),

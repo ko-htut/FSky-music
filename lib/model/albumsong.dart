@@ -1,31 +1,28 @@
 
-class AlbumData {
-    List<Datum> data;
+class AlbumSong {
+    Data data;
 
-    AlbumData({
+    AlbumSong({
         this.data,
     });
-
-    factory AlbumData.fromJson(Map<String, dynamic> json) => AlbumData(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    factory AlbumSong.fromJson(Map<String, dynamic> json) => AlbumSong(
+        data: Data.fromJson(json["data"]),
     );
-
     Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
     };
 }
 
-class Datum {
+class Data {
     int id;
     String cover;
     String name;
     String about;
-    DatumArtist artist;
+    DataArtist artist;
     bool condition;
     List<Song> songs;
-    String detail;
 
-    Datum({
+    Data({
         this.id,
         this.cover,
         this.name,
@@ -33,18 +30,16 @@ class Datum {
         this.artist,
         this.condition,
         this.songs,
-        this.detail,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         cover: json["cover"],
         name: json["name"],
         about: json["about"],
-        artist: DatumArtist.fromJson(json["artist"]),
+        artist: DataArtist.fromJson(json["artist"]),
         condition: json["condition"],
         songs: List<Song>.from(json["songs"].map((x) => Song.fromJson(x))),
-        detail: json["detail"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -55,20 +50,19 @@ class Datum {
         "artist": artist.toJson(),
         "condition": condition,
         "songs": List<dynamic>.from(songs.map((x) => x.toJson())),
-        "detail": detail,
     };
 }
 
-class DatumArtist {
+class DataArtist {
     String name;
     String detail;
 
-    DatumArtist({
+    DataArtist({
         this.name,
         this.detail,
     });
 
-    factory DatumArtist.fromJson(Map<String, dynamic> json) => DatumArtist(
+    factory DataArtist.fromJson(Map<String, dynamic> json) => DataArtist(
         name: json["name"],
         detail: json["detail"],
     );

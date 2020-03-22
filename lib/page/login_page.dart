@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fskymusic/provider/user_model.dart';
 import 'package:fskymusic/utils/navigator_util.dart';
@@ -6,7 +6,6 @@ import 'package:fskymusic/utils/utils.dart';
 import 'package:fskymusic/widget/common_button.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,6 +20,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     _animation = CurvedAnimation(parent: _controller, curve: Curves.linear);
@@ -28,7 +28,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       _controller.forward();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +73,15 @@ class _LoginWidget extends StatefulWidget {
 }
 
 class __LoginWidgetState extends State<_LoginWidget> {
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _pwdController = TextEditingController();
+  TextEditingController _emailController;
+  TextEditingController _pwdController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _pwdController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +114,12 @@ class __LoginWidgetState extends State<_LoginWidget> {
           ),
           VEmptyView(50),
           TextField(
-            controller: _phoneController,
+            autofocus: false,
             keyboardType: TextInputType.emailAddress,
+            controller: _emailController,
+            onSubmitted: (email) {
+              _emailController.text = email;
+            },
             decoration: InputDecoration(
                 hintText: 'Email',
                 prefixIcon: Icon(
@@ -121,6 +131,9 @@ class __LoginWidgetState extends State<_LoginWidget> {
           TextField(
             obscureText: true,
             controller: _pwdController,
+            onSubmitted: (password) {
+              _pwdController.text = password;
+            },
             decoration: InputDecoration(
                 hintText: 'Password',
                 prefixIcon: Icon(
@@ -133,19 +146,21 @@ class __LoginWidgetState extends State<_LoginWidget> {
             builder: (BuildContext context, UserModel value, Widget child) {
               return CommonButton(
                 callback: () {
-                  String phone = _phoneController.text;
+                  String email = _emailController.text;
                   String pwd = _pwdController.text;
-                  if (phone.isEmpty || pwd.isEmpty) {
-                    Utils.showToast('ကျေးဇူးပြုပီး အကောင့် login ဖောင်အားဖြည့်ပါ');
+                  if (email.isEmpty || pwd.isEmpty) {
+                    Utils.showToast(
+                        'ကျေးဇူးပြုပီး အကောင့် login ဖောင်အားဖြည့်ပါ');
                     return;
                   }
-                  value.login(
+                  value
+                      .login(
                     context,
-                    phone,
+                    email,
                     pwd,
-                  ).then((value){
-                    if(value != null){
-                      // Provider.of<PlayListModel>(context).user = value;
+                  )
+                      .then((value) {
+                    if (value != null) {
                       NavigatorUtil.goHomePage(context);
                     }
                   });

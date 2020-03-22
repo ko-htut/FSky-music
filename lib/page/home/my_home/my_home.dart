@@ -9,9 +9,11 @@ import 'package:fskymusic/utils/navigator_util.dart';
 import 'package:fskymusic/utils/net_utils.dart';
 import 'package:fskymusic/widget/common_text_style.dart';
 import 'package:fskymusic/widget/h_empty_view.dart';
+import 'package:fskymusic/widget/rounded_net_image.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
 import 'package:fskymusic/widget/widget_future_builder.dart';
 import 'package:fskymusic/widget/widget_play_list.dart';
+import 'package:fskymusic/widget/widget_round_img.dart';
 import 'package:provider/provider.dart';
 
 class MyHome extends StatefulWidget {
@@ -24,94 +26,60 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Widget _buildHomeCategoryList() {
-    return Container(
-      height: 120,
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-                 height: 100,
-                    width: 100,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    colorFilter: ColorFilter.mode(Colors.green, BlendMode.softLight),
-                    fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://avatarfiles.alphacoders.com/954/95487.png",scale: 30)),
-              
-                  borderRadius: BorderRadius.circular(10)),
-              child: Icon(Icons.dialpad),
+    var map = {
+      'Categories': 'images/icon_playlist.png',
+      'Artist': 'images/icon_playlist.png',
+      'Facebook': 'images/fskylogo.png',
+    };
+
+    var keys = map.keys.toList();
+    var width = ScreenUtil().setWidth(80);
+
+    return GridView.custom(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.only(bottom: 10),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: keys.length,
+        childAspectRatio: 1 / 0.4,
+      ),
+      childrenDelegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              switch (index) {
+                case 0:
+                
+                  break;
+                case 1:
+                  NavigatorUtil.goArtistlistHandler(context);
+                  break;
+              }
+            },
+            child: Card(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.red[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Image.asset(
+                      map[keys[index]],
+                      width: width,
+                      height: width,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Text(keys[index]),
+                  )
+                ],
+              ),
             ),
-          ),
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: <Widget>[
-          //         Container(
-          //           color: Colors.black12,
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("Artis"),
-          //           ),
-          //         ),
-          //         Container(
-          //           color: Colors.black12,
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("Category"),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: <Widget>[
-          //         Container(
-          //           color: Colors.black12,
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("data"),
-          //           ),
-          //         ),
-          //         Container(
-          //           color: Colors.black12,
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("data"),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: <Widget>[
-          //         Container(
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("data"),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: Text("data"),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   )
-        ],
+          );
+        },
+        childCount: keys.length,
       ),
     );
   }
@@ -129,7 +97,7 @@ class _MyHomeState extends State<MyHome>
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
-                height: 180,
+                height: 170,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
@@ -150,37 +118,61 @@ class _MyHomeState extends State<MyHome>
                   VEmptyView(15),
                   _buildHomeCategoryList(),
                   VEmptyView(15),
-                  Text(
-                    'Album',
-                    style: commonTextStyle,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Song',
+                        style: commonTextStyle,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          NavigatorUtil.goAllSongPageHandler(context);
+                        },
+                        child: Text(
+                          'See All',
+                          style: commonTextStyle,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
             VEmptyView(20),
-            _buildNewAlbum(),
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: _buildPlayList(),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: ScreenUtil().setWidth(15),
               ),
-              child: Text(
-                'Song',
-                style: commonTextStyle,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Album',
+                    style: commonTextStyle,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      NavigatorUtil.goAllAlbumPage(context);
+                    },
+                    child: Text(
+                      'See All',
+                      style: commonTextStyle,
+                    ),
+                  ),
+                ],
               ),
             ),
-            VEmptyView(20),
-            _buildPlayList(),
+            VEmptyView(0),
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenUtil().setWidth(15),
-              ),
-              child: Text(
-                'MV',
-                style: commonTextStyle,
-              ),
+              padding: const EdgeInsets.all(8.0),
+              child: _buildNewAlbum(),
             ),
-            VEmptyView(20),
-            _buildNewAlbum(),
+            VEmptyView(50),
           ],
         ),
       ),
@@ -192,29 +184,55 @@ class _MyHomeState extends State<MyHome>
         futureFunc: NetUtils.getAlbumData,
         builder: (context, snapshot) {
           var data = snapshot.data;
-          return Container(
-              height: ScreenUtil().setWidth(300),
-              child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return HEmptyView(ScreenUtil().setWidth(30));
+          return GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, childAspectRatio: 1 / 1.2),
+            itemBuilder: (context, index) {
+              var d = data[index];
+              return GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  NavigatorUtil.goAlbumPage(context, data: data[index]);
                 },
-                padding:
-                    EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
-                itemBuilder: (context, index) {
-                  return PlayListWidget(
-                    text: data[index].name,
-                    picUrl: data[index].cover,
-                    subText: data[index].name ?? "",
-                    maxLines: 1,
-                    onTap: () {
-                      NavigatorUtil.goAlbumPage(context, data: data[index]);
-                    },
-                  );
-                },
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: data.length,
-              ));
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        RoundedNetImage(
+                          '${d.cover}',
+                          width: 220,
+                          height: 230,
+                          radius: 15,
+                          fit: BoxFit.fill,
+                        ),
+                        Positioned(
+                          child: Text(
+                            d.name,
+                            style: smallWhiteTextStyle,
+                          ),
+                          left: ScreenUtil().setWidth(10),
+                          bottom: ScreenUtil().setWidth(10),
+                        )
+                      ],
+                    ),
+                    VEmptyView(10),
+                    Container(
+                      child: Text(
+                        d.artist.name,
+                        style: common13TextStyle,
+                      ),
+                      width: ScreenUtil().setWidth(200),
+                    ),
+                  ],
+                ),
+              );
+            },
+            itemCount: 6,
+          );
         });
   }
 
@@ -256,6 +274,7 @@ class _MyHomeState extends State<MyHome>
     model.playSongs(
       data.data
           .map((r) => son.Song(r.id,
+              songLrc: r.lyric,
               name: r.name,
               picUrl: r.cover,
               artists: '${r.artist.artistName}',

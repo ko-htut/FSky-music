@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fskymusic/model/album.dart';
@@ -7,9 +6,9 @@ import 'package:fskymusic/utils/utils.dart';
 import 'package:fskymusic/widget/common_text_style.dart';
 import 'package:fskymusic/widget/rounded_net_image.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
+import 'package:fskymusic/widget/widget_tag.dart';
 
 import '../../application.dart';
-
 
 class PlayListDescDialog extends StatelessWidget {
   final Datum _data;
@@ -66,6 +65,7 @@ class PlayListDescDialog extends StatelessWidget {
                               '${_data.cover}',
                               width: 400,
                               height: 400,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           VEmptyView(40),
@@ -81,23 +81,23 @@ class PlayListDescDialog extends StatelessWidget {
                             width: Application.screenWidth * 3 / 4,
                           ),
                           VEmptyView(20),
-                          // _data.tags.isEmpty
-                          //     ? Container()
-                          //     : Row(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: <Widget>[
-                          //           Text(
-                          //             '----',
-                          //             style: common14WhiteTextStyle,
-                          //           ),
-                          //           ..._data.tags
-                          //               .map((t) => TagWidget(t))
-                          //               .toList()
-                          //         ],
-                          //       ),
-                          // _data.tags.isEmpty ? Container() : VEmptyView(40),
+                          _data.artist.name.isEmpty
+                              ? Container()
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Info --',
+                                      style: common14WhiteTextStyle,
+                                    ),
+                                    TagWidget(_data.artist.name),
+                                  ],
+                                ),
+                          _data.artist.name.isEmpty
+                              ? Container()
+                              : VEmptyView(40),
                           Text(
-                            _data.detail,
+                            _data.about,
                             style: common14WhiteTextStyle,
                             softWrap: true,
                           ),

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fskymusic/utils/utils.dart';
 import 'package:fskymusic/widget/widget_music_list_header.dart';
@@ -43,6 +42,7 @@ class PlayListAppBarWidget extends StatelessWidget {
       bottom: MusicListHeader(
         onTap: playOnTap,
         count: count,
+        title:title,
       ),
       flexibleSpace: FlexibleDetailBar(
         content: content,
