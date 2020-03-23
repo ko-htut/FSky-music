@@ -6,13 +6,13 @@ import 'package:fskymusic/model/albumsong.dart';
 import 'package:fskymusic/model/artistdata.dart';
 import 'package:fskymusic/model/song.dart';
 import 'package:fskymusic/model/user.dart';
+import 'package:fskymusic/model/banner.dart' as ba;
 import 'package:fskymusic/route/navigate_service.dart';
 import 'package:fskymusic/route/routes.dart';
 import 'package:fskymusic/utils/utils.dart';
 import 'package:fskymusic/widget/loading.dart';
 
 import '../application.dart';
-
 
 class NetUtils {
   static Dio _dio = Dio();
@@ -68,10 +68,8 @@ class NetUtils {
     return User.fromJson(response.data);
   }
 
-  static Future<AlbumData> getAlbumData(
-    BuildContext context,
-    {String ss}
-  ) async {
+  static Future<AlbumData> getAlbumData(BuildContext context,
+      {String ss}) async {
     var response = await _get(
       context,
       'album',
@@ -79,7 +77,7 @@ class NetUtils {
     return AlbumData.fromJson(response.data);
   }
 
- static Future<aa.ArtistData> getartist(
+  static Future<aa.ArtistData> getartist(
     BuildContext context,
   ) async {
     var response = await _get(
@@ -88,7 +86,7 @@ class NetUtils {
     );
     return aa.ArtistData.fromJson(response.data);
   }
- 
+
   static Future<SongData> getSongData(
     BuildContext context,
   ) async {
@@ -99,9 +97,18 @@ class NetUtils {
     return SongData.fromJson(response.data);
   }
 
-  static Future<AlbumSong> getAlbumSongData(
-    BuildContext context,{String i}
-  ) async {
+  static Future<ba.Banner> getBannerData() async {
+    // var response = await _get(
+    //   context,
+    //   'banner',
+    // );
+    var response =
+        await _dio.get("http://dashboard.fskymusic.com/public/api/banner");
+    return ba.Banner.fromJson(response.data);
+  }
+
+  static Future<AlbumSong> getAlbumSongData(BuildContext context,
+      {String i}) async {
     var response = await _get(
       context,
       "album$i",

@@ -10,7 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fskymusic/page/play_songs/widget_song_progress.dart';
 import 'package:fskymusic/provider/play_songs_model.dart';
 import 'package:fskymusic/provider/user_model.dart';
+import 'package:fskymusic/utils/navigator_util.dart';
 import 'package:fskymusic/utils/utils.dart';
+import 'package:fskymusic/widget/common_button.dart';
 import 'package:fskymusic/widget/common_text_style.dart';
 import 'package:fskymusic/widget/v_empty_view.dart';
 import 'package:fskymusic/widget/widget_img_menu.dart';
@@ -261,10 +263,10 @@ class _PlaySongsPage1State extends State<PlaySongsPage1>
                                             child: Padding(
                                           padding: const EdgeInsets.all(10.0),
                                           child: Text(
-                                        model.curSong.songLrc,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 19),
+                                            model.curSong.songLrc,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 19),
                                           ),
                                         ))
                                       ],
@@ -424,26 +426,51 @@ class _PlaySongsPage1State extends State<PlaySongsPage1>
     return Container(
       height: ScreenUtil().setWidth(100),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          userModel.user.success.details.vip == "1"
-              ? ImageMenuWidget(
-                  'images/icon_song_download.png',
-                  80,
-                  onTap: () {
+          userModel.user != null
+              ? CommonButton(
+                  color: Colors.green,
+                  content: "Download",
+                  callback: () {
                     t.Toast.show("Start Downloading", context,
                         duration: t.Toast.LENGTH_SHORT,
                         gravity: t.Toast.BOTTOM);
                     _requestDownload(model);
                   },
                 )
-              : ImageMenuWidget(
-                  'images/icon_song_download.png',
-                  80,
-                  onTap: () {
-                    t.Toast.show("No VIP", context,
-                        duration: t.Toast.LENGTH_SHORT,
-                        gravity: t.Toast.BOTTOM);
-                  },
+              : Center(
+                  child: CommonButton(
+                    color: Colors.green,
+                    content: "Donwload",
+                    callback: () {
+                      return showDialog(
+                        context: context,
+                        barrierDismissible:
+                            false, // user must tap button for close dialog!
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Login '),
+                            content: const Text('dfskdjfafksdnfkslkajkkdnak'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: const Text('တော်ပီ'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              FlatButton(
+                                child: const Text('Login ဝင်မည်'),
+                                onPressed: () {
+                                  NavigatorUtil.goLoginPage(context);
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
         ],
       ),

@@ -98,13 +98,26 @@ class _MyHomeState extends State<MyHome>
               padding: const EdgeInsets.all(5.0),
               child: Container(
                 height: 170,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://wallpaperaccess.com/full/1525073.jpg")),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey),
+                child: FutureBuilder(
+                    builder: (context, projectSnap) {
+                      if (projectSnap.connectionState == ConnectionState.none &&
+                          projectSnap.hasData == null) {
+                        return Container(
+                          child: Text("Data Api Error"),
+                        );
+                      }
+                      return Container(
+                        height: 170,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    projectSnap.data.data.path.toString())),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey),
+                      );
+                    },
+                    future: NetUtils.getBannerData()),
               ),
             ),
             Padding(
@@ -279,8 +292,7 @@ class _MyHomeState extends State<MyHome>
               name: r.name,
               picUrl: r.cover,
               artists: '${r.artist.artistName}',
-              songUrl:
-                  "http://dashboard.fskymusic.com/source/song/mp3/849234502.mp3"))
+              songUrl: r.source))
           .toList(),
       index: index,
     );

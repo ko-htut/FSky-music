@@ -5,11 +5,13 @@ class CommonButton extends StatelessWidget {
   final String content;
   final double width;
   final double height;
+  final Color color;
   final double fontSize;
 
   CommonButton({
     @required this.callback,
     @required this.content,
+    @required this.color,
     this.width = 250,
     this.height = 50,
     this.fontSize = 18,
@@ -22,7 +24,7 @@ class CommonButton extends StatelessWidget {
       height: height,
       child: RaisedButton(
         onPressed: callback,
-        color: Colors.red,
+        color: color,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(height / 2))),
         child: Text(
           content,

@@ -131,7 +131,7 @@ class _SongPlayListPageState extends State<SongPlayListPage> {
               picUrl: r.cover,
               artists: '${r.artist.artistName}',
               songUrl:
-                  "https://eboxmovie.sgp1.digitaloceanspaces.com/saisai.MP3"))
+                  r.source))
           .toList(),
       index: index,
     );

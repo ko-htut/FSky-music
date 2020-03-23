@@ -1,8 +1,6 @@
-import 'dart:convert';
+// Banner bannerFromJson(String str) => Banner.fromJson(json.decode(str));
 
-Banner bannerFromJson(String str) => Banner.fromJson(json.decode(str));
-
-String bannerToJson(Banner data) => json.encode(data.toJson());
+// String bannerToJson(Banner data) => json.encode(data.toJson());
 
 class Banner {
     Data data;

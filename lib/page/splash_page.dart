@@ -56,10 +56,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       int index = Application.sp.getInt('playing_index');
       playSongsModel.curIndex = index;
     }
-    if (userModel.user != null) {
+    // if (userModel.user != null) {
       NavigatorUtil.goHomePage(context);
-    } else
-      NavigatorUtil.goLoginPage(context);
+    // } else
+    //   NavigatorUtil.goLoginPage(context);
   }
 
   @override

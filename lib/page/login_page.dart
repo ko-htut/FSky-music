@@ -145,6 +145,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
           Consumer<UserModel>(
             builder: (BuildContext context, UserModel value, Widget child) {
               return CommonButton(
+                color: Colors.red,
                 callback: () {
                   String email = _emailController.text;
                   String pwd = _pwdController.text;
